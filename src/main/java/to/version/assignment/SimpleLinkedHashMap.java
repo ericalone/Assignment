@@ -11,6 +11,17 @@ public class SimpleLinkedHashMap<K, V> {
 	// This is inefficient with respect to space consumed as we're storing data in
 	// multiple data structures
 	// can we eliminate one of the data structures?
+	
+	// looks like 'orderedKeys' is only used to keep track of the order of 
+	// insertion.
+    // 1. we might want to use array instead of linked list. But array is 
+	//    data structure too. so it might not help that much. LinkedList 
+	//    maintains element data and two pointers for neighbor nodes hence 
+	//    the memory consumption is high in LinkedList comparatively.
+	// 2. Use Map.entry? I believe that is what the full version of 
+	//	  LinedHaspMap
+	// 3. any other thought?
+	
 	private HashMap<K, V> entries = new HashMap<K, V>();
 	private LinkedList<K> orderedKeys = new LinkedList<K>();
 
