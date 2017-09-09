@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 // Please feel free to make any code cleanups or changes
 public class SimpleLinkedHashMap<K, V> {
@@ -59,7 +60,11 @@ public class SimpleLinkedHashMap<K, V> {
 			}
 
 			@Override
-			public Map.Entry<K, V> next() {				
+			public Map.Entry<K, V> next() {	
+				if(!it.hasNext())	{
+					throw new NoSuchElementException();
+				}
+				
 				K key = it.next();
 				for (Map.Entry<K, V> entry : entries.entrySet()) {
 			        if (key.equals(entry.getKey())) 	return entry;

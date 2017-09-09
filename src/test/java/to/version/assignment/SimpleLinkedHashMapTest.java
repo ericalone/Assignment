@@ -6,9 +6,12 @@ import static org.junit.Assert.assertThat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import org.hamcrest.core.IsNull;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class SimpleLinkedHashMapTest {
 	@Test
@@ -31,7 +34,7 @@ public class SimpleLinkedHashMapTest {
         Map.Entry<String, Integer> third = iterator.next();
         assertThat(third.getKey(), is("if3"));
         assertThat(third.getValue(), is(30));
-        
+       
         assertThat(iterator.hasNext(), is(false));
     }
 
@@ -61,4 +64,18 @@ public class SimpleLinkedHashMapTest {
         linkedHashMap.remove("if1"); 
         assertThat(linkedHashMap.get("if1"), is(IsNull.nullValue()));
     }
+	
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
+	
+	@Test
+	public void testIteratorWithEmptyElements()	{
+		SimpleLinkedHashMap<String, Integer> linkedHashMap = new SimpleLinkedHashMap<>();
+        Iterator<Map.Entry<String, Integer>> iterator = linkedHashMap.iterator();
+
+        assertThat(iterator.hasNext(), is(false));
+        
+        thrown.expect(NoSuchElementException.class);
+        iterator.next();
+	}
 }
